@@ -8,7 +8,7 @@
  * @author Vegard Løkken <vegard@loekken.org>
  * @copyright 2015 Vegard Løkken
  * @license MIT
- * @version 0.0.1
+ * @version 0.0.2
  */
 ;(function()
 {
@@ -28,8 +28,8 @@
      * Alphabet to use in encrypted string. Characters in the message/key that
      * is not in this alphabet will be used as is, without being encrypted
      */
-    Vigenere.prototype.alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ' +
-            'abcdefghijklmnopqrstuvwxyzæøå .,?!-_;:+1234567890"';
+    Vigenere.prototype.alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
+            'abcdefghijklmnopqrstuvwxyz .,?!-_;:+1234567890"';
 
     /**
      * Method to encrypt a given string
