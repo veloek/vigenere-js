@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="vigenere">
+<head>
+	<title>Secret Message</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="vigenere.js"></script>
+	<script src="angular.min.js"></script>
+	<link rel="stylesheet" href="bootstrap.min.css">
+</head>
+<body ng-controller="VigenereController">
+	<div style="max-width:500px;margin:auto;padding:20px">
+		<h1>Secret message</h1>
+		<form>
+			<div class="form-group">
+				<label>
+					Password
+					<input type="password" class="form-control" ng-model="form.key" placeholder="Secret key">
+				</label>
+			</div>
+			<div class="form-group">
+				<label for="input">Message <span title="Characters that will be encrypted: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz .,?!-_;:+1234567890">(?)</span></label>
+				<textarea id="input" class="form-control" rows="3" ng-model="form.msg" ng-trim="false" placeholder="Your message" style="max-width:100%"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="output">Code</label>
+				<textarea id="output" class="form-control" rows="3" ng-model="form.code" placeholder="Encoded result" style="max-width:100%"></textarea>
+			</div>
+		</form>
+		<p><em>This site is using a JavaScript implementation of the Vigenère cipher to encrypt/decrypt the message. You can find the source <a href="vigenere.js">here</a>.</em></p>
+		<center>Copyright 2016 &copy; <a href="http://vtek.no/">Vegard Løkken</a></center>
+	</div>
+<script>
+angular.module("vigenere", [])
+.controller("VigenereController", function($scope) {
+	$scope.form = {
+		key: "",
+		msg: "",
+		code: ""
+	};
+
+	var v = new Vigenere();
+
+	$scope.$watch("form.key", function(val) {
+		v.key = val;
+		$scope.form.msg = v.decrypt($scope.form.code);
+		$scope.$apply();
+	});
+
+	$scope.$watch("form.msg", function(msg) {
+		$scope.form.code = v.encrypt(msg);
+	});
+
+	$scope.$watch("form.code", function(code) {
+		$scope.form.msg = v.decrypt(code);
+	});
+});
+</script>
+</body>
+</html>
